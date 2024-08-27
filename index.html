@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora de Dosagem de Medicamentos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Calculadora de Dosagem de Medicamentos</h1>
+        
+        <!-- Formulário de Dosagem -->
+        <form id="medication-form">
+            <div class="form-group">
+                <label for="medication"><i class="fas fa-capsules"></i> Nome do Medicamento:</label>
+                <input type="text" id="medication" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="dose"><i class="fas fa-syringe"></i> Dose Prescrita (mg):</label>
+                <input type="number" id="dose" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="concentration"><i class="fas fa-tachometer-alt"></i> Concentração Disponível (mg/mL):</label>
+                <input type="number" id="concentration" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="volume"><i class="fas fa-tachometer-alt"></i> Volume Disponível (mL):</label>
+                <input type="number" id="volume" required>
+            </div>
+            
+            <button type="button" onclick="calculateDosage()">Calcular Dosagem</button>
+        </form>
+        
+        <div id="result" class="result">
+            <p id="result-text"></p>
+        </div>
+
+        <!-- Formulário de Gotejamento -->
+        <h2>Calcular Gotejamento</h2>
+        <form id="infusion-form">
+            <div class="form-group">
+                <label for="infusion-volume"><i class="fas fa-tachometer-alt"></i> Volume da Infusão (mL):</label>
+                <input type="number" id="infusion-volume" required>
+            </div>
+
+            <div class="form-group">
+                <label for="infusion-time"><i class="fas fa-clock"></i> Tempo da Infusão (horas):</label>
+                <input type="number" id="infusion-time" required>
+            </div>
+
+            <button type="button" onclick="calculateInfusionRate()">Calcular Gotejamento</button>
+        </form>
+        
+        <div id="infusion-result" class="result">
+            <p id="infusion-result-text"></p>
+        </div>
+
+        <!-- Formulário de Medicamentos Específicos -->
+        <h2>Cálculo de Medicamentos Específicos</h2>
+        <form id="specific-medications-form">
+            <div class="form-group">
+                <label for="specific-medication"><i class="fas fa-capsules"></i> Selecione o Medicamento:</label>
+                <select id="specific-medication">
+                    <option value="amoxicilina">Amoxicilina</option>
+                    <option value="insulina">Insulina</option>
+                    <option value="heparina">Heparina</option>
+                    <option value="dipirona">Dipirona</option>
+                    <option value="liquemine">Liquemine</option>
+                    <option value="voltaren">Voltaren</option>
+                    <option value="soro-glic">Soro Glicossado</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="specific-dose"><i class="fas fa-syringe"></i> Dose Prescrita (mg ou UI):</label>
+                <input type="number" id="specific-dose" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="specific-volume"><i class="fas fa-tachometer-alt"></i> Volume Disponível (mL):</label>
+                <input type="number" id="specific-volume" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="specific-concentration"><i class="fas fa-tachometer-alt"></i> Concentração Disponível (mg/mL ou UI/mL):</label>
+                <input type="number" id="specific-concentration" required>
+            </div>
+
+            <button type="button" onclick="calculateSpecificDosages()">Calcular Medicamentos Específicos</button>
+        </form>
+        
+        <div id="specific-result" class="result">
+            <p id="specific-result-text"></p>
+        </div>
+    </div>
+
+    <script src="scripts.js"></script>
+</body>
+</html>
