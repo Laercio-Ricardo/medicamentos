@@ -2,16 +2,16 @@ function calculateDosage() {
     const medication = document.getElementById('medication').value;
     const dose = parseFloat(document.getElementById('dose').value);
     const concentration = parseFloat(document.getElementById('concentration').value);
-    const volume = parseFloat(document.getElementById('volume').value);
 
-    if (isNaN(dose) || isNaN(concentration) || isNaN(volume)) {
+    if (isNaN(dose) || isNaN(concentration)) {
         document.getElementById('result-text').innerText = 'Por favor, preencha todos os campos corretamente.';
         return;
     }
 
-    const requiredVolume = (dose / concentration) * volume;
+    // Calcula o volume necessário e arredonda o resultado
+    const requiredVolume = Math.round(dose / concentration);
 
-    document.getElementById('result-text').innerText = `Você deve administrar ${requiredVolume.toFixed(2)} mL do medicamento ${medication}.`;
+    document.getElementById('result-text').innerText = `Você deve administrar ${requiredVolume} mL do medicamento ${medication}.`;
 }
 
 function calculateInfusionRate() {
@@ -23,7 +23,8 @@ function calculateInfusionRate() {
         return;
     }
 
-    const rate = (volume / (time * 60)).toFixed(2); // Gotas por minuto
+    // Calcula a taxa de gotejamento e arredonda o resultado
+    const rate = Math.round((volume / (time * 60)));
 
     document.getElementById('infusion-result-text').innerText = `Você deve administrar a solução a uma taxa de ${rate} gotas por minuto.`;
 }
@@ -35,7 +36,7 @@ function calculateSpecificDosages() {
     
     switch (medication) {
         case 'amoxicilina':
-            resultText = 'Para Amoxicilina 300mg VO de 8/8h, disponível 100mg/5mL, administre 15mL.';
+            resultText = 'Para Amoxicilina 300mg VO de 8/8h, disponível 100mg/5mL, administre 15 mL.';
             break;
         case 'insulina':
             resultText = 'Para Insulina NPH 50UI, disponível frasco de 100UI e seringa de 2 mL, aspire 1 mL.';
@@ -47,7 +48,7 @@ function calculateSpecificDosages() {
             resultText = 'Para Dipirona 250mg IM, disponível ampola de 500mg/2mL, administre 1 mL.';
             break;
         case 'liquemine':
-            resultText = 'Para Liquemine 500 UI SC de 12/12h, disponível 1000UI/mL em ampola de 1mL, aspire 0,5 mL.';
+            resultText = 'Para Liquemine 500 UI SC de 12/12h, disponível 1000UI/mL em ampola de 1 mL, aspire 0,5 mL.';
             break;
         case 'voltaren':
             resultText = 'Para Voltaren 50mg IM, disponível ampola de Diclofenaco 75mg/3mL, administre 2 mL.';
