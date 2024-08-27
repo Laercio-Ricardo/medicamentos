@@ -1,61 +1,67 @@
-// Função para calcular a dosagem de medicamentos
 function calculateDosage() {
+    const medication = document.getElementById('medication').value;
     const dose = parseFloat(document.getElementById('dose').value);
     const concentration = parseFloat(document.getElementById('concentration').value);
     const volume = parseFloat(document.getElementById('volume').value);
 
     if (isNaN(dose) || isNaN(concentration) || isNaN(volume)) {
-        alert('Por favor, preencha todos os campos.');
+        document.getElementById('result-text').innerText = 'Por favor, preencha todos os campos corretamente.';
         return;
     }
 
-    const result = (dose * volume) / concentration;
-    document.getElementById('result-text').innerText = `Você deve administrar ${result.toFixed(2)} mL.`;
+    const requiredVolume = (dose / concentration) * volume;
+
+    document.getElementById('result-text').innerText = `Você deve administrar ${requiredVolume.toFixed(2)} mL do medicamento ${medication}.`;
 }
 
-// Função para calcular a taxa de gotejamento com base na fórmula padrão
 function calculateInfusionRate() {
-    const infusionVolume = parseFloat(document.getElementById('infusion-volume').value);
-    const infusionTime = parseFloat(document.getElementById('infusion-time').value);
-
-    if (isNaN(infusionVolume) || isNaN(infusionTime)) {
-        alert('Por favor, preencha todos os campos.');
+    const volume = parseFloat(document.getElementById('infusion-volume').value);
+    const time = parseFloat(document.getElementById('infusion-time').value);
+    
+    if (isNaN(volume) || isNaN(time)) {
+        document.getElementById('infusion-result-text').innerText = 'Por favor, preencha todos os campos corretamente.';
         return;
     }
 
-    // Fator de gotejamento padrão (ajuste conforme necessário)
-    const dripFactor = 20; // Fator padrão de gotas/mL
+    const rate = (volume / (time * 60)).toFixed(2); // Gotas por minuto
 
-    // Calcular a taxa de gotejamento em gotas/minuto
-    const rate = (infusionVolume / (infusionTime * 60)) * dripFactor;
-    document.getElementById('infusion-result-text').innerText = `O gotejamento é de ${rate.toFixed(2)} gotas/minuto.`;
+    document.getElementById('infusion-result-text').innerText = `Você deve administrar a solução a uma taxa de ${rate} gotas por minuto.`;
 }
 
-// Função para calcular dosagens específicas com base no medicamento selecionado
 function calculateSpecificDosages() {
     const medication = document.getElementById('specific-medication').value;
-    const dose = parseFloat(document.getElementById('specific-dose').value);
-    const volume = parseFloat(document.getElementById('specific-volume').value);
-    const concentration = parseFloat(document.getElementById('specific-concentration').value);
 
-    if (isNaN(dose) || isNaN(volume) || isNaN(concentration)) {
-        alert('Por favor, preencha todos os campos.');
-        return;
+    let resultText = '';
+    
+    switch (medication) {
+        case 'amoxicilina':
+            resultText = 'Para Amoxicilina 300mg VO de 8/8h, disponível 100mg/5mL, administre 15mL.';
+            break;
+        case 'insulina':
+            resultText = 'Para Insulina NPH 50UI, disponível frasco de 100UI e seringa de 2 mL, aspire 1 mL.';
+            break;
+        case 'heparina':
+            resultText = 'Para Heparina 10.000UI SC de 8/8h, disponível frasco 5000UI/1 mL, aspire 2 mL.';
+            break;
+        case 'dipirona':
+            resultText = 'Para Dipirona 250mg IM, disponível ampola de 500mg/2mL, administre 1 mL.';
+            break;
+        case 'liquemine':
+            resultText = 'Para Liquemine 500 UI SC de 12/12h, disponível 1000UI/mL em ampola de 1mL, aspire 0,5 mL.';
+            break;
+        case 'voltaren':
+            resultText = 'Para Voltaren 50mg IM, disponível ampola de Diclofenaco 75mg/3mL, administre 2 mL.';
+            break;
+        case 'solucao-reposicao':
+            resultText = 'Para uma solução de reposição hídrica de 250 mL em 3 horas, o gotejamento é de 27 gotas por minuto.';
+            break;
+        case 'soro-glicossado':
+            resultText = 'Para 500 mL de soro glicosado em 6 horas, o gotejamento é de 14 gotas por minuto.';
+            break;
+        default:
+            resultText = 'Por favor, selecione um medicamento específico.';
+            break;
     }
 
-    // Definir fatores de gotejamento para medicamentos específicos
-    const dripFactors = {
-        'soro-glic': 60, // Exemplo de fator de gotejamento para soro glicosado
-        'heparina': 20,  // Exemplo de fator de gotejamento para heparina
-        'amoxicilina': 15, // Exemplo de fator de gotejamento para amoxicilina
-        'insulina': 30,  // Exemplo de fator de gotejamento para insulina
-        'dipirona': 20,  // Exemplo de fator de gotejamento para dipirona
-        'liquemine': 15, // Exemplo de fator de gotejamento para liquemine
-        'voltaren': 20   // Exemplo de fator de gotejamento para voltaren
-    };
-
-    const dripFactor = dripFactors[medication] || 20; // Fator padrão se não definido
-    const calculatedDose = (dose * volume) / concentration;
-
-    document.getElementById('specific-result-text').innerText = `Você deve administrar ${calculatedDose.toFixed(2)} mL.`;
+    document.getElementById('specific-result-text').innerText = resultText;
 }
